@@ -1,0 +1,109 @@
+#!python3
+
+#Partial url for imgur
+import requests as req
+
+low = 'abcdefghijklmnopqrstuvwxyz'
+hig = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+#characters know in the imgur link after /a/
+a = "ibxicr" # <-paste known caracters between the "
+
+# Check to see if the imgur link is valid non empty
+# just checking for response doens't work as invalid also give 200
+def getHeader(url):
+    response = req.get(url)
+    headers = response.headers
+    html = response.text
+    a = "https://i.imgur.com/"
+    texty = str(response.content)
+    if a in texty:
+        return (True,url)
+    else:
+        return (False,url)
+    #print(texty)
+
+# create string binary to try upper and lower case
+# todo - remove need for bits with numbers known aa1aaaa
+def upper_lower(bits):
+    bits_num = len(bits)
+    b = []
+    bi = []
+    x = 0
+    ran = 2**bits_num
+    bid = []
+    for i in range(ran):
+        bi.append(bin(i))
+    for i in bi:
+        num = i[2:len(i)]
+        while len(num) != bits_num:
+            num = '0' + num
+        bid.append(num)
+    cc = []
+    for i in bid:
+        gg = ""
+        ff = 0
+        for y in bits:
+            if i[ff] == '1':
+                gg += y.upper()
+            else:
+                gg += y
+            ff += 1
+        cc.append('https://imgur.com/a/' + gg)
+    print(cc, 'cc')
+    return cc
+
+print('Do you know the cases of the known characters AA as aposed to aA?')
+print('y for yes, anything else for no')
+known_cases = str(input())
+if known_cases == "y" or known_cases == 'Y':
+    case = True
+    cc = ['https://imgur.com/a/' + a]
+else:
+    case = False
+    cc = upper_lower(a)
+
+
+
+#cc.append('https://imgur.com/a/G1gpv7Y')
+
+chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+xxx = 1
+for i in cc:
+    
+    # check to see if it is a good link
+    if len(i) == 27:
+        print('27 chars simple',xxx,i)
+        if getHeader(i)[0]:
+            print(getHeader(i))
+            match = getHeader(i)+x+y
+    elif len(i) == 26:
+        print('26 chars hard',xxx,i)
+        for x in chars:
+            if getHeader(i+x)[0]:
+                print(getHeader(i),x)
+                match = getHeader(i)+x+y
+    elif len(i) == 25:
+        print('25 chars Very hard',xxx,i)
+        for x in chars:
+            for y in chars:
+                if getHeader(i+x+y)[0]:
+                    print(getHeader(i),x,y)
+                    match = getHeader(i)+x+y
+    xxx +=1
+
+if match:
+    print("A MATCH WAS FOUND: " + match)
+else:
+    print('a match was not found :(')
+
+
+
+
+
+
+
+
+
+
+
