@@ -7,7 +7,7 @@ low = 'abcdefghijklmnopqrstuvwxyz'
 hig = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 #characters know in the imgur link after /a/
-a = "ibxicr" # <-paste known caracters between the "
+a = "YfohJ" # <-paste known caracters between the "
 
 # Check to see if the imgur link is valid non empty
 # just checking for response doens't work as invalid also give 200
@@ -50,6 +50,7 @@ def upper_lower(bits):
                 gg += y
             ff += 1
         cc.append('https://imgur.com/a/' + gg)
+        cc.append('https://imgur.com/gallery/QQ5UcgV')
     print(cc, 'cc')
     return cc
 
@@ -58,10 +59,13 @@ print('y for yes, anything else for no')
 known_cases = str(input())
 if known_cases == "y" or known_cases == 'Y':
     case = True
+    
     cc = ['https://imgur.com/a/' + a]
+    cc.append('https://imgur.com/gallery/QQ5UcgV')
 else:
     case = False
     cc = upper_lower(a)
+    
 
 
 
@@ -70,26 +74,33 @@ else:
 chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 xxx = 1
 for i in cc:
-    
     # check to see if it is a good link
     if len(i) == 27:
         print('27 chars simple',xxx,i)
         if getHeader(i)[0]:
             print(getHeader(i))
             match = getHeader(i)+x+y
+        print('27',i)
     elif len(i) == 26:
         print('26 chars hard',xxx,i)
+        if getHeader('https://imgur.com/gallery/QQ5UcgV'):
+            print('checking works')
         for x in chars:
             if getHeader(i+x)[0]:
                 print(getHeader(i),x)
                 match = getHeader(i)+x+y
+            print('26',i,x)
     elif len(i) == 25:
         print('25 chars Very hard',xxx,i)
         for x in chars:
+            if getHeader('https://imgur.com/gallery/QQ5UcgV'):
+                print('checking works')
             for y in chars:
                 if getHeader(i+x+y)[0]:
                     print(getHeader(i),x,y)
                     match = getHeader(i)+x+y
+                print('25',i,x,y)
+        
     xxx +=1
 
 if match:
