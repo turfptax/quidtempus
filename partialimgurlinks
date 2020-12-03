@@ -7,7 +7,7 @@ low = 'abcdefghijklmnopqrstuvwxyz'
 hig = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 #characters know in the imgur link after /a/
-a = "YfohJ" # <-paste known caracters between the "
+a = "6eh8nmd" # <-paste known caracters between the "
 
 # Check to see if the imgur link is valid non empty
 # just checking for response doens't work as invalid also give 200
@@ -79,7 +79,7 @@ for i in cc:
         print('27 chars simple',xxx,i)
         if getHeader(i)[0]:
             print(getHeader(i))
-            match = getHeader(i)+x+y
+            match = getHeader(i)
         print('27',i)
     elif len(i) == 26:
         print('26 chars hard',xxx,i)
@@ -88,7 +88,7 @@ for i in cc:
         for x in chars:
             if getHeader(i+x)[0]:
                 print(getHeader(i),x)
-                match = getHeader(i)+x+y
+                match = getHeader(i)+x
             print('26',i,x)
     elif len(i) == 25:
         print('25 chars Very hard',xxx,i)
@@ -104,17 +104,7 @@ for i in cc:
     xxx +=1
 
 if match:
-    print("A MATCH WAS FOUND: " + match)
+    print("A MATCH WAS FOUND: ", match)
 else:
     print('a match was not found :(')
-
-
-
-
-
-
-
-
-
-
 
