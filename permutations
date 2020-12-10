@@ -4,7 +4,7 @@ from itertools import permutations
 
 def getHeader(url):
     a = "https://i.imgur.com/"
-    response = req.get(a+url)
+    response = req.get(url)
     headers = response.headers
     html = response.text
     
