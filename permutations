@@ -1,0 +1,27 @@
+import requests as req
+from itertools import permutations
+
+
+def getHeader(url):
+    a = "https://i.imgur.com/"
+    response = req.get(a+url)
+    headers = response.headers
+    html = response.text
+    
+    texty = str(response.content)
+    if a in texty:
+        return (True,url)
+        print('found it: ', url)
+        input()
+    else:
+        return (False,url)
+    #print(texty)
+
+### enter the text here for the unsolved imgur link that you don't know the order of the strings
+## should be 7 chars
+bbb = "lohtHLt"
+perms = [''.join(p) for p in permutations(bbb)]
+
+for i in perms:
+    url = 'https://imgur.com/a/' + i
+    getHeader(url)
